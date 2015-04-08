@@ -1,7 +1,7 @@
 Package.describe({
   name: 'thegreatshasha:autoform-selectize',
   summary: 'Custom "selectize" input type for AutoForm',
-  version: '0.0.1',
+  version: '0.0.2',
   git: 'https://github.com/thegreatshasha/meteor-autoform-selectize.git'
 });
 
