@@ -66,7 +66,7 @@ AutoForm.addInputType("selectize", {
     }
 
     var fetchOpt = function fetchOpt(opt) {
-      return _.extend(opt, {
+      return _.defaults(opt, {
         name: context.name,
         label: opt.label,
         value: opt.value,
