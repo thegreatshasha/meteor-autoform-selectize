@@ -66,10 +66,11 @@ AutoForm.addInputType("selectize", {
     }
 
     var fetchOpt = function fetchOpt(opt) {
-      return {
+      return _.extend(opt, {
         name: context.name,
         label: opt.label,
         value: opt.value,
+        opt: opt,
         // _id must be included because it is a special property that
         // #each uses to track unique list items when adding and removing them
         // See https://github.com/meteor/meteor/issues/2174
@@ -77,7 +78,7 @@ AutoForm.addInputType("selectize", {
         selected: _.isArray(context.value) ?
           _.contains(context.value, opt.value) : (opt.value === context.value),
         atts: itemAtts
-      };
+      });
     };
 
     // Add all defined options
@@ -91,7 +92,6 @@ AutoForm.addInputType("selectize", {
         context.items.push(fetchOpt(opt));
       }
     });
-
     return context;
   }
 });
@@ -182,13 +182,13 @@ var _refreshSelectizeOptions = function (selectize, options) {
     if (option.optgroup) {
       selectize.addOptionGroup(option.optgroup, {label: option.optgroup});
       _.each(option.items, function (groupOption) {
-        selectize.addOption({value: groupOption.value, text: groupOption.label, optgroup: option.optgroup});
+        selectize.addOption(_.extend(option, {value: groupOption.value, text: groupOption.label, optgroup: option.optgroup}));
         if (groupOption.selected) {
           selectize.addItem(groupOption.value, true);
         }
       });
     } else if (option.value) {
-      selectize.addOption({value: option.value, text: option.label});
+      selectize.addOption(_.extend(option, {value: option.value, text: option.label}));
       if (option.selected) {
         selectize.addItem(option.value, true);
       }
